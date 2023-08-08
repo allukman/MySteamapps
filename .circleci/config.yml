@@ -26,6 +26,8 @@ jobs:
           command: |
             sudo update-java-alternatives -s java-17-openjdk-amd64
             java -version
+            export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+            ./gradlew --version
       - run:
           name: Run Build
           command: ./gradlew build
