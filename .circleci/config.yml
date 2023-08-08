@@ -1,13 +1,18 @@
 version: 2.1
- 
+
 orbs:
   android: circleci/android@1.0.3
- 
+
 jobs:
   build:
     executor: android/android
     steps:
       - checkout
+      - run:
+          name: Print Environment Variables
+          command: |
+            echo "JAVA_HOME: $JAVA_HOME"
+            echo "PATH: $PATH"
       - restore_cache:
           key: android-orb-v1-
       - run:
@@ -21,13 +26,6 @@ jobs:
           paths:
             - ~/.android/build-cache
             - ~/.android/cache
-      - run:
-          name: Set Java to 17
-          command: |
-            sudo update-java-alternatives -s java-17-openjdk-amd64
-            java -version
-            export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-            ./gradlew --version
       - run:
           name: Run Build
           command: ./gradlew build
