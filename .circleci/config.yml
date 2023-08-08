@@ -22,6 +22,11 @@ jobs:
             - ~/.android/build-cache
             - ~/.android/cache
       - run:
+          name: Set Java to 17
+          command: |
+            sudo update-java-alternatives -s java-17-openjdk-amd64
+            java -version
+      - run:
           name: Run Build
           command: ./gradlew build
       - store_artifacts: 
